@@ -5,6 +5,11 @@ const productsApiRouter =  require('./routes/api/products')
 const bodyParser = require('body-parser');
 
 
+const {
+        logErrors,
+        clientErrorHandler,
+        errorHandler
+}=require('./utils/middlewares/errorsHandlers')
 // APP 
 const app = express();
 
@@ -17,14 +22,19 @@ app.set("view engine", "pug");
 app.use("/static", express.static(path.join(__dirname, "public")));
 app.use('/products', productsRouter);
 app.use("/api/products", productsApiRouter)
+//redirecting function
 app.get('/', function(req, res){
 
         res.redirect('/products')
 
 });
+//error handlers
+app.use(logErrors);
+app.use(clientErrorHandler);
+app.use(errorHandler);
 
 
-
+//server
 const server = app.listen(8000, function (){
 
         console.log("Server Listening in por 8000")

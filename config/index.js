@@ -1,4 +1,5 @@
-require('dotenv').config();
+require('dotenv').config()
+
 
 const config = {
 
@@ -10,3 +11,4 @@ const config = {
     dbPort: process.env.DB_PORT,
     dbName: process.env.DB_NAME
 };
+module.exports = {config};
